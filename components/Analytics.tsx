@@ -1,7 +1,7 @@
 import Script from 'next/script';
 import { Analytics as VercelAnalytics } from '@vercel/analytics/next';
 
-const GA_ID = 'G-MSD8QRQ6CS';
+const GA_ID = 'G-4LT78HFH4S';
 
 export default function Analytics() {
   return (
