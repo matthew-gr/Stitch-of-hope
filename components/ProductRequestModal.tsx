@@ -2,7 +2,9 @@
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import type { Product } from '@/lib/db/types';
+import { trackEvent } from '@/lib/analytics';
 
 type Props = {
   product: Product | null;
@@ -12,12 +14,18 @@ type Props = {
 export default function ProductRequestModal({ product, onClose }: Props) {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [err, setErr] = useState('');
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (product) {
       document.body.style.overflow = 'hidden';
       setStatus('idle');
       setErr('');
+      trackEvent('product_modal_open', { product: product.name, category: product.category });
     } else {
       document.body.style.overflow = '';
     }
@@ -32,7 +40,7 @@ export default function ProductRequestModal({ product, onClose }: Props) {
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);
 
-  if (!product) return null;
+  if (!product || !mounted) return null;
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -60,6 +68,7 @@ export default function ProductRequestModal({ product, onClose }: Props) {
       if (res.ok) {
         setStatus('sent');
         form.reset();
+        trackEvent('product_request', { product: product.name, category: product.category });
       } else {
         const data = await res.json().catch(() => ({}));
         setErr(data.error || 'Something went wrong');
@@ -71,19 +80,21 @@ export default function ProductRequestModal({ product, onClose }: Props) {
     }
   };
 
-  return (
+  // Render via Portal to escape the main element's stacking context,
+  // ensuring the modal and its close button sit above the sticky site header.
+  return createPortal(
     <div
-      className="fixed inset-0 z-[70] flex items-center justify-center px-4 py-8 bg-ink/60 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] flex items-center justify-center px-4 py-8 bg-ink/60 backdrop-blur-sm"
       onClick={onClose}
     >
-      {/* Close button at viewport-level so mobile headers can't cover it and modal scroll can't hide it */}
+      {/* Close button at true viewport level — always visible */}
       <button
         onClick={(e) => {
           e.stopPropagation();
           onClose();
         }}
         aria-label="Close"
-        className="fixed top-4 right-4 z-[80] w-11 h-11 rounded-full flex items-center justify-center bg-ivory/95 hover:bg-white text-ink border border-ink/15 shadow-md transition"
+        className="fixed top-4 right-4 z-[110] w-11 h-11 rounded-full flex items-center justify-center bg-ivory/95 hover:bg-white text-ink border border-ink/15 shadow-md transition"
       >
         <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
           <path d="M1 1l16 16M17 1L1 17" stroke="currentColor" strokeWidth="1.5" />
@@ -109,13 +120,9 @@ export default function ProductRequestModal({ product, onClose }: Props) {
         <div className="p-8 md:p-10">
           <p className="eyebrow">{product.category}</p>
           <h2 className="mt-2 font-display text-3xl text-ink">{product.name}</h2>
-          <p className="mt-4 font-sans text-sm text-ink/70 leading-relaxed">
-            {product.blurb}
-          </p>
+          <p className="mt-4 font-sans text-sm text-ink/70 leading-relaxed">{product.blurb}</p>
           {product.details && (
-            <p className="mt-3 font-sans text-sm text-ink/70 leading-relaxed">
-              {product.details}
-            </p>
+            <p className="mt-3 font-sans text-sm text-ink/70 leading-relaxed">{product.details}</p>
           )}
 
           {status === 'sent' ? (
@@ -185,6 +192,7 @@ export default function ProductRequestModal({ product, onClose }: Props) {
           )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

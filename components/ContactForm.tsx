@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { trackEvent } from '@/lib/analytics';
 
 export default function ContactForm() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
@@ -31,6 +32,7 @@ export default function ContactForm() {
       if (res.ok) {
         setStatus('sent');
         form.reset();
+        trackEvent('contact_submit', { inquiry_type: body.inquiry });
       } else {
         const data = await res.json().catch(() => ({}));
         setErr(data.error || 'Something went wrong');

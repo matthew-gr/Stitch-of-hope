@@ -1,5 +1,6 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Analytics from '@/components/Analytics';
 import { getContent } from '@/lib/db/content';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://stitch-of-hope.com';
@@ -93,6 +94,7 @@ export default async function PublicLayout({ children }: { children: React.React
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <Analytics />
     </>
   );
 }
