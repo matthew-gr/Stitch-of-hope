@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #FAF7F2;
+  color: #1F1F1F;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'ss01', 'ss02';
+  position: relative;
+}
+
+/* Subtle fabric-weave texture — nods to the sewing craft */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(31, 31, 31, 0.025) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(90deg, rgba(31, 31, 31, 0.025) 0 1px, transparent 1px 6px);
+}
+
+/* Film grain — warmth, depth */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.12  0 0 0 0 0.12  0 0 0 0 0.12  0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+main, header, footer {
+  position: relative;
+  z-index: 1;
+}
+
+::selection {
+  background: #C9A96E;
+  color: #1F1F1F;
+}
+
+@layer components {
+  .hairline {
+    @apply border-t border-ink/10;
+  }
+  .eyebrow {
+    @apply font-sans text-[11px] uppercase tracking-luxe text-mist;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-ink text-ivory px-7 py-3.5 text-sm tracking-luxe uppercase font-sans transition-all duration-500 ease-quiet hover:bg-graphite;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 border border-ink/40 text-ink px-7 py-3.5 text-sm tracking-luxe uppercase font-sans transition-all duration-500 ease-quiet hover:border-ink hover:bg-ink hover:text-ivory;
+  }
+  .input {
+    @apply w-full bg-transparent border-0 border-b border-ink/20 py-3 font-sans text-ink placeholder:text-mist/70 focus:border-ink focus:outline-none focus:ring-0 transition-colors duration-300;
+  }
+  .select {
+    @apply input appearance-none pr-8 bg-no-repeat;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1l5 5 5-5' stroke='%231F1F1F' stroke-opacity='.5' stroke-width='1' fill='none'/></svg>");
+    background-size: 12px 8px;
+    background-position: right center;
+  }
+}
+
+/* Reveal on scroll — only applies once JS is ready, so no-JS users see content */
+html[data-reveal-ready="true"] .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+html[data-reveal-ready="true"] .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
