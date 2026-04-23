@@ -5,8 +5,17 @@ import { getContent } from '@/lib/db/content';
 export const revalidate = 60;
 
 export const metadata = {
-  title: 'Contact — Stitch of Hope',
-  description: 'Visit our shop in Biryogo, Kigali, or send us a note online.',
+  title: 'Visit Us in Biryogo, Kigali',
+  description:
+    "Find our Kigali sewing shop at KN 7 Ave, Biryogo — across from the Nyamirambo Women's Center. Open 9am–6pm daily. Wholesale and press inquiries welcome.",
+  alternates: { canonical: '/contact' },
+  openGraph: {
+    title: 'Visit Us in Biryogo, Kigali · Stitch of Hope',
+    description:
+      "Find our Kigali sewing shop at KN 7 Ave, Biryogo — across from the Nyamirambo Women's Center. Open 9am–6pm daily.",
+    url: '/contact',
+    type: 'website' as const,
+  },
 };
 
 export default async function ContactPage() {

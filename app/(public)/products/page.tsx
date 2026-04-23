@@ -6,10 +6,20 @@ import { listProducts } from '@/lib/db/products';
 
 export const revalidate = 60;
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://stitch-of-hope.com';
+
 export const metadata = {
-  title: 'Products — Stitch of Hope',
+  title: 'Products — Handmade Bags, Apparel & Home Goods',
   description:
-    'Handcrafted apparel, bags, home goods, and toys — each piece made by women artisans in Kigali.',
+    'Shop our Kigali-handcrafted collection — totes, cardigans, pillows, and more. Each piece sewn by women artisans in Rwanda. Request items directly from our workshop.',
+  alternates: { canonical: '/products' },
+  openGraph: {
+    title: 'Products — Handmade in Kigali · Stitch of Hope',
+    description:
+      'Shop our Kigali-handcrafted collection — totes, cardigans, pillows, and more. Each piece sewn by women artisans in Rwanda.',
+    url: '/products',
+    type: 'website' as const,
+  },
 };
 
 export default async function ProductsPage() {
@@ -20,8 +30,40 @@ export default async function ProductsPage() {
     ?? products[0]?.image
     ?? '/images/Bag (Lady Shillouette).PNG';
 
+  const productSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Stitch of Hope — Products',
+    itemListElement: products.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'Product',
+        name: p.name,
+        description: p.blurb,
+        category: p.category,
+        image: p.image
+          ? p.image.startsWith('http')
+            ? p.image
+            : `${SITE_URL}${encodeURI(p.image)}`
+          : undefined,
+        brand: { '@type': 'Brand', name: 'Stitch of Hope' },
+        offers: {
+          '@type': 'Offer',
+          availability: 'https://schema.org/InStock',
+          priceCurrency: 'RWF',
+          url: `${SITE_URL}/products`,
+        },
+      },
+    })),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
       <section className="max-w-[1400px] mx-auto px-6 md:px-12 pt-16 md:pt-24 pb-10 md:pb-14">
         <p className="eyebrow">Our Collection</p>
         <h1 className="mt-4 font-display font-light text-5xl md:text-7xl text-ink leading-[1] max-w-3xl">
