@@ -76,20 +76,24 @@ export default function ProductRequestModal({ product, onClose }: Props) {
       className="fixed inset-0 z-[70] flex items-center justify-center px-4 py-8 bg-ink/60 backdrop-blur-sm"
       onClick={onClose}
     >
+      {/* Close button at viewport-level so mobile headers can't cover it and modal scroll can't hide it */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onClose();
+        }}
+        aria-label="Close"
+        className="fixed top-4 right-4 z-[80] w-11 h-11 rounded-full flex items-center justify-center bg-ivory/95 hover:bg-white text-ink border border-ink/15 shadow-md transition"
+      >
+        <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
+          <path d="M1 1l16 16M17 1L1 17" stroke="currentColor" strokeWidth="1.5" />
+        </svg>
+      </button>
+
       <div
         onClick={(e) => e.stopPropagation()}
         className="relative w-full max-w-4xl bg-ivory grid grid-cols-1 md:grid-cols-2 max-h-[92vh] overflow-y-auto"
       >
-        <button
-          onClick={onClose}
-          aria-label="Close"
-          className="absolute top-4 right-4 z-10 w-9 h-9 flex items-center justify-center text-ink/60 hover:text-ink transition"
-        >
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M1 1l16 16M17 1L1 17" stroke="currentColor" />
-          </svg>
-        </button>
-
         <div className="relative aspect-[4/5] md:aspect-auto bg-bone">
           {product.image && (
             <Image

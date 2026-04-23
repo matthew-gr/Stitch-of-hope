@@ -14,90 +14,117 @@ export default async function OpengraphImage() {
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
           padding: 80,
           backgroundColor: '#FAF7F2',
           color: '#1F1F1F',
-          fontFamily: 'Georgia, serif',
+          fontFamily: 'Georgia, "Times New Roman", serif',
           position: 'relative',
         }}
       >
-        {/* Decorative frame */}
+        {/* Thin decorative frame */}
         <div
           style={{
             position: 'absolute',
-            inset: 32,
-            border: '1px solid rgba(31,31,31,0.08)',
-            pointerEvents: 'none',
+            top: 40,
+            right: 40,
+            bottom: 40,
+            left: 40,
+            border: '1px solid rgba(31,31,31,0.1)',
           }}
         />
 
-        {/* Top eyebrow */}
+        {/* Eyebrow */}
         <div
           style={{
             fontSize: 22,
-            letterSpacing: 7,
+            letterSpacing: 8,
             textTransform: 'uppercase',
             color: '#8A8275',
             fontFamily: 'Helvetica, Arial, sans-serif',
-            fontWeight: 400,
+            marginBottom: 40,
           }}
         >
           Muraho — welcome
         </div>
 
-        {/* Main heading */}
-        <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
-          <div style={{ fontSize: 118, fontWeight: 300 }}>Made by hand.</div>
-          <div style={{ fontSize: 118, fontWeight: 300, fontStyle: 'italic', marginTop: 4 }}>
-            Made with purpose.
-          </div>
-          <div
-            style={{
-              marginTop: 28,
-              fontSize: 26,
-              color: '#3A3A3A',
-              fontFamily: 'Helvetica, Arial, sans-serif',
-              maxWidth: 800,
-              lineHeight: 1.4,
-            }}
-          >
-            Premium apparel, bags &amp; home goods — crafted in Kigali by women artisans.
-          </div>
+        {/* Main heading — centered, sized to fit safely in any crop */}
+        <div
+          style={{
+            fontSize: 88,
+            fontWeight: 400,
+            lineHeight: 1.02,
+            letterSpacing: '-0.01em',
+          }}
+        >
+          Made by hand.
+        </div>
+        <div
+          style={{
+            fontSize: 88,
+            fontWeight: 400,
+            fontStyle: 'italic',
+            lineHeight: 1.02,
+            letterSpacing: '-0.01em',
+            marginTop: 6,
+          }}
+        >
+          Made with purpose.
         </div>
 
-        {/* Footer row */}
+        {/* Tagline */}
+        <div
+          style={{
+            fontSize: 24,
+            color: '#3A3A3A',
+            fontFamily: 'Helvetica, Arial, sans-serif',
+            marginTop: 44,
+            maxWidth: 780,
+            lineHeight: 1.4,
+          }}
+        >
+          Handcrafted apparel, bags &amp; home goods — sewn by women artisans in Kigali, Rwanda.
+        </div>
+
+        {/* Footer: decorative diamond + brand + locale */}
         <div
           style={{
             display: 'flex',
-            justifyContent: 'space-between',
             alignItems: 'center',
-            paddingTop: 24,
-            borderTop: '1px solid rgba(31,31,31,0.12)',
+            gap: 20,
+            marginTop: 54,
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-            <div
-              style={{
-                width: 12,
-                height: 12,
-                transform: 'rotate(45deg)',
-                border: '1px solid #1F1F1F',
-              }}
-            />
-            <div style={{ fontSize: 32 }}>Stitch of Hope</div>
-          </div>
+          <div
+            style={{
+              width: 10,
+              height: 10,
+              transform: 'rotate(45deg)',
+              border: '1px solid rgba(31,31,31,0.4)',
+            }}
+          />
           <div
             style={{
               fontSize: 20,
-              letterSpacing: 4,
+              letterSpacing: 6,
               textTransform: 'uppercase',
-              color: '#8A8275',
+              color: '#1F1F1F',
               fontFamily: 'Helvetica, Arial, sans-serif',
+              fontWeight: 500,
             }}
           >
-            Kigali · Rwanda
+            Stitch of Hope
           </div>
+          <div
+            style={{
+              width: 10,
+              height: 10,
+              transform: 'rotate(45deg)',
+              border: '1px solid rgba(31,31,31,0.4)',
+            }}
+          />
         </div>
       </div>
     ),

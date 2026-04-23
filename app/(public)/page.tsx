@@ -22,7 +22,8 @@ export default async function Home() {
             sizes="100vw"
             className="object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-ivory/20 via-ivory/5 to-ivory/85" />
+          {/* Stronger ivory wash on mobile for text legibility; subtler on desktop */}
+          <div className="absolute inset-0 bg-gradient-to-b from-ivory/70 via-ivory/40 to-ivory md:from-ivory/25 md:via-ivory/10 md:to-ivory/90" />
           <div className="absolute inset-0 flex items-end">
             <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12 pb-16 md:pb-24">
               <p className="eyebrow text-ink/70">{c['hero.eyebrow']}</p>
