@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(curl -sI -A \"facebookexternalhit/1.1 \\(+http://www.facebook.com/externalhit_uatext.php\\)\" https://stitch-of-hope.com/)",
-      "Bash(curl -sI -A \"Mozilla/5.0\" https://stitch-of-hope.com/)"
-    ]
-  }
-}
