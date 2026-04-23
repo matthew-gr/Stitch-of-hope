@@ -105,7 +105,11 @@ export default async function Home() {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-5 md:gap-x-8 gap-y-12">
             {featured.map((p) => (
-              <Link key={p.id} href="/products" className="group reveal">
+              <Link
+                key={p.id}
+                href={`/products?product=${encodeURIComponent(p.slug)}`}
+                className="group reveal"
+              >
                 <div className="relative aspect-[4/5] overflow-hidden bg-bone">
                   {p.image && (
                     <Image

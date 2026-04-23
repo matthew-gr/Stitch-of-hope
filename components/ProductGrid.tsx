@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState, useMemo, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import type { Product, Category } from '@/lib/db/types';
 import { CATEGORIES } from '@/lib/db/types';
 import ProductRequestModal from './ProductRequestModal';
@@ -11,6 +12,9 @@ type Filter = 'All' | Category;
 const INITIAL_VISIBLE = 6;
 
 export default function ProductGrid({ products }: { products: Product[] }) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [filter, setFilter] = useState<Filter>('All');
   const [active, setActive] = useState<Product | null>(null);
   const [showAll, setShowAll] = useState(false);
@@ -23,6 +27,23 @@ export default function ProductGrid({ products }: { products: Product[] }) {
   useEffect(() => {
     setShowAll(false);
   }, [filter]);
+
+  // Open modal automatically if arriving via /products?product=<slug>
+  // (e.g. clicking a featured product on the home page)
+  useEffect(() => {
+    const slug = searchParams.get('product');
+    if (!slug) return;
+    const match = products.find((p) => p.slug === slug);
+    if (match) setActive(match);
+  }, [searchParams, products]);
+
+  const closeModal = () => {
+    setActive(null);
+    // Strip ?product=... from the URL without a scroll jump / navigation
+    if (searchParams.get('product')) {
+      router.replace('/products', { scroll: false });
+    }
+  };
 
   const visible = showAll ? filtered : filtered.slice(0, INITIAL_VISIBLE);
   const hiddenCount = filtered.length - visible.length;
@@ -112,7 +133,7 @@ export default function ProductGrid({ products }: { products: Product[] }) {
         </div>
       )}
 
-      <ProductRequestModal product={active} onClose={() => setActive(null)} />
+      <ProductRequestModal product={active} onClose={closeModal} />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { Suspense } from 'react';
 import ProductGrid from '@/components/ProductGrid';
 import Ornament from '@/components/Ornament';
 import { listProducts } from '@/lib/db/products';
@@ -76,7 +77,9 @@ export default async function ProductsPage() {
       </section>
 
       <section className="max-w-[1400px] mx-auto px-6 md:px-12 pb-24 md:pb-32">
-        <ProductGrid products={products} />
+        <Suspense fallback={null}>
+          <ProductGrid products={products} />
+        </Suspense>
       </section>
 
       <Ornament className="my-16 md:my-20" />
