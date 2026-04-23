@@ -52,9 +52,12 @@ export default function Footer({ contact }: { contact: Contact }) {
       </div>
 
       <div className="border-t border-ink/5">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-6 flex flex-col md:flex-row items-center justify-between gap-2">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-6 flex flex-col md:flex-row items-center justify-between gap-3">
           <p className="font-sans text-xs text-mist">
-            © {new Date().getFullYear()} Stitch of Hope. All rights reserved.
+            © {new Date().getFullYear()} Stitch of Hope LTD.{' '}
+            <Link href="/privacy" className="hover:text-ink transition-colors underline-offset-4 hover:underline">
+              Privacy Policy
+            </Link>
           </p>
           <p className="font-sans text-xs text-mist">
             Byakozwe urukundo i Kigali · Made with love in Kigali
