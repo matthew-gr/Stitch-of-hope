@@ -15,6 +15,7 @@ export default function ProductRequestModal({ product, onClose }: Props) {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [err, setErr] = useState('');
   const [mounted, setMounted] = useState(false);
+  const [loadTime, setLoadTime] = useState<number>(() => Date.now());
 
   useEffect(() => {
     setMounted(true);
@@ -25,6 +26,7 @@ export default function ProductRequestModal({ product, onClose }: Props) {
       document.body.style.overflow = 'hidden';
       setStatus('idle');
       setErr('');
+      setLoadTime(Date.now()); // reset form-load time when modal opens
       trackEvent('product_modal_open', { product: product.name, category: product.category });
     } else {
       document.body.style.overflow = '';
@@ -57,6 +59,8 @@ export default function ProductRequestModal({ product, onClose }: Props) {
       phone: String(data.get('Phone') ?? ''),
       quantity: String(data.get('Quantity') ?? ''),
       notes: String(data.get('Notes') ?? ''),
+      website: String(data.get('website') ?? ''), // honeypot
+      _ts: loadTime,
     };
 
     try {
@@ -137,6 +141,14 @@ export default function ProductRequestModal({ product, onClose }: Props) {
             </div>
           ) : (
             <form onSubmit={onSubmit} className="mt-8 border-t border-ink/10 pt-8 space-y-5">
+              {/* Honeypot — hidden from humans, bots fill it in */}
+              <div aria-hidden="true" style={{ position: 'absolute', left: '-10000px', top: 'auto', width: '1px', height: '1px', overflow: 'hidden' }}>
+                <label>
+                  Website
+                  <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+                </label>
+              </div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <label className="block">
                   <span className="eyebrow">Name</span>

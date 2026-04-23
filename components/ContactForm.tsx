@@ -6,6 +6,7 @@ import { trackEvent } from '@/lib/analytics';
 export default function ContactForm() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [err, setErr] = useState('');
+  const [loadTime] = useState(() => Date.now());
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,6 +22,8 @@ export default function ContactForm() {
       phone: String(data.get('Phone') ?? ''),
       inquiry: String(data.get('Inquiry') ?? ''),
       message: String(data.get('Message') ?? ''),
+      website: String(data.get('website') ?? ''), // honeypot
+      _ts: loadTime,
     };
 
     try {
@@ -57,6 +60,14 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={onSubmit} className="space-y-6">
+      {/* Honeypot — hidden from humans, bots fill it in */}
+      <div aria-hidden="true" style={{ position: 'absolute', left: '-10000px', top: 'auto', width: '1px', height: '1px', overflow: 'hidden' }}>
+        <label>
+          Website
+          <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <label className="block">
           <span className="eyebrow">Name</span>
