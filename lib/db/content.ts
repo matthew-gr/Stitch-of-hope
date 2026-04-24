@@ -19,6 +19,46 @@ const DEFAULTS: SiteContent = {
     { k: '[X]', v: 'Pieces handcrafted' },
     { k: '2 yrs', v: 'Sewing stories in Kigali' },
   ],
+  testimonials: [
+    {
+      quote: 'Beautiful craftsmanship. Every piece tells a story.',
+      name: '[Placeholder — replace]',
+      location: 'Kigali',
+    },
+    {
+      quote: "I've bought three bags and they all get compliments every single time.",
+      name: '[Placeholder — replace]',
+      location: 'London',
+    },
+    {
+      quote: 'Supporting an incredible mission, and the quality is genuinely top-notch.',
+      name: '[Placeholder — replace]',
+      location: 'Nairobi',
+    },
+  ],
+  faqs: [
+    {
+      q: 'Do you ship internationally?',
+      a: 'Yes — we ship worldwide from our Kigali workshop. Rates and timing depend on your destination; we share a quote with every request so there are no surprises.',
+    },
+    {
+      q: 'Can I request custom sizes or colours?',
+      a: "Absolutely. Note your preference in the request form for any product and we'll tailor it to you.",
+    },
+    {
+      q: 'Do you offer wholesale or bulk orders?',
+      a: "Yes. For hotels, NGOs, conferences, and gifting programs, please use the Wholesale option on our contact form — we'll respond within 48 hours.",
+    },
+    {
+      q: 'How long does a piece take to make?',
+      a: 'Each piece is sewn by hand in our workshop. Most items ship within 1–2 weeks of order confirmation; intricate pieces or larger batches take a little longer.',
+    },
+    {
+      q: 'Can I visit the workshop?',
+      a: "We'd love that. Our shop at KN 7 Ave, Biryogo is open every day from 9am to 6pm. Drop in — we'll pour you a coffee.",
+    },
+  ],
+  instagram_posts: [],
   'visit_cta.heading': 'Come say muraho in Biryogo.',
   'shop.address_line1': 'KN 7 Ave, Biryogo',
   'shop.address_line2': 'Kigali, Rwanda',

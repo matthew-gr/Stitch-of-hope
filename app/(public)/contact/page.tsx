@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import ContactForm from '@/components/ContactForm';
+import FaqList from '@/components/FaqList';
 import { getContent } from '@/lib/db/content';
 
 export const revalidate = 60;
@@ -111,6 +112,8 @@ export default async function ContactPage() {
           </div>
         </div>
       </section>
+
+      <FaqList items={c.faqs} />
     </>
   );
 }

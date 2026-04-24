@@ -17,6 +17,9 @@ export type Product = {
 };
 
 export type Stat = { k: string; v: string };
+export type Faq = { q: string; a: string };
+export type Testimonial = { quote: string; name: string; location: string };
+export type InstagramPost = { image_url: string; caption: string; link_url: string };
 
 export type SiteContent = {
   'hero.eyebrow': string;
@@ -31,6 +34,9 @@ export type SiteContent = {
   'story.paragraph_3': string;
   'story.image_url': string;
   stats: Stat[];
+  testimonials: Testimonial[];
+  faqs: Faq[];
+  instagram_posts: InstagramPost[];
   'visit_cta.heading': string;
   'shop.address_line1': string;
   'shop.address_line2': string;

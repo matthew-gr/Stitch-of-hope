@@ -1,5 +1,8 @@
 import { getContent } from '@/lib/db/content';
 import ImageField from '@/components/admin/ImageField';
+import FaqsEditor from '@/components/admin/FaqsEditor';
+import TestimonialsEditor from '@/components/admin/TestimonialsEditor';
+import InstagramPostsEditor from '@/components/admin/InstagramPostsEditor';
 import { saveHomeContent } from './actions';
 
 export const dynamic = 'force-dynamic';
@@ -83,6 +86,41 @@ export default async function ContentPage() {
               </label>
             </div>
           ))}
+        </section>
+
+        {/* TESTIMONIALS */}
+        <section className="border border-ink/10 p-6 md:p-8 space-y-6 bg-bone/20">
+          <div>
+            <h2 className="font-display text-xl text-ink">Testimonials</h2>
+            <p className="text-xs text-ink/60 mt-1">
+              Shown on the home page after featured products. The section is hidden entirely if empty.
+            </p>
+          </div>
+          <TestimonialsEditor initial={c.testimonials} />
+        </section>
+
+        {/* INSTAGRAM */}
+        <section className="border border-ink/10 p-6 md:p-8 space-y-6 bg-bone/20">
+          <div>
+            <h2 className="font-display text-xl text-ink">From the workshop — Instagram</h2>
+            <p className="text-xs text-ink/60 mt-1">
+              Up to 4 curated Instagram posts shown on the home page. Upload the image,
+              add an optional caption, and paste the Instagram post URL so visitors can
+              click through.
+            </p>
+          </div>
+          <InstagramPostsEditor initial={c.instagram_posts} />
+        </section>
+
+        {/* FAQ */}
+        <section className="border border-ink/10 p-6 md:p-8 space-y-6 bg-bone/20">
+          <div>
+            <h2 className="font-display text-xl text-ink">FAQs (Contact page)</h2>
+            <p className="text-xs text-ink/60 mt-1">
+              Questions and answers shown at the bottom of the Contact page. Hidden if empty.
+            </p>
+          </div>
+          <FaqsEditor initial={c.faqs} />
         </section>
 
         {/* VISIT CTA */}

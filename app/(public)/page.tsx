@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { listFeaturedProducts } from '@/lib/db/products';
 import { getContent } from '@/lib/db/content';
 import Ornament from '@/components/Ornament';
+import Testimonials from '@/components/Testimonials';
+import InstagramGrid from '@/components/InstagramGrid';
 
 export const revalidate = 60;
 
@@ -132,6 +134,12 @@ export default async function Home() {
           </div>
         </section>
       )}
+
+      {/* TESTIMONIALS */}
+      <Testimonials items={c.testimonials} />
+
+      {/* INSTAGRAM */}
+      <InstagramGrid posts={c.instagram_posts} profileUrl={c['shop.instagram_url']} />
 
       {/* VISIT CTA */}
       <section className="max-w-[1400px] mx-auto px-6 md:px-12 pb-8">
