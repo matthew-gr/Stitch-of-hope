@@ -72,6 +72,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${display.variable} ${sans.variable}`}>
+      <head>
+        {/* Open a TCP+TLS connection to the Supabase image CDN early so admin-uploaded hero/product images land faster */}
+        <link rel="preconnect" href="https://supabase.co" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://supabase.co" />
+      </head>
       <body className="font-sans">
         <Reveal />
         {children}

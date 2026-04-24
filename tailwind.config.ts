@@ -9,7 +9,7 @@ const config: Config = {
         bone: '#F2ECE2',
         ink: '#1F1F1F',
         graphite: '#3A3A3A',
-        mist: '#8A8275',
+        mist: '#6B6458',
         gold: '#C9A96E',
         terracotta: '#B9674E',
       },
