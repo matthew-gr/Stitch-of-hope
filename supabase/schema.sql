@@ -41,6 +41,16 @@ create table if not exists submissions (
 create index if not exists submissions_received_idx on submissions (received_at desc);
 create index if not exists submissions_unread_idx on submissions (read_at) where read_at is null;
 
+-- ============ ROW-LEVEL SECURITY ============
+-- The app server uses the service_role key (which bypasses RLS), so enabling
+-- RLS with no public policies means: anon/anonymous clients get nothing, while
+-- our Next.js server code keeps working as before. Locks down anyone who
+-- happens to know the project URL + the public anon key.
+
+alter table site_content enable row level security;
+alter table products enable row level security;
+alter table submissions enable row level security;
+
 -- ============ STORAGE BUCKET ============
 
 insert into storage.buckets (id, name, public)
